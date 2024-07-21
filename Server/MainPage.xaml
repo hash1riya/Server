@@ -3,7 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Server.MainPage">
 
-    
-    
+
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="50, *, 60"
+        RowSpacing="2">
+        <Border
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <HorizontalStackLayout Spacing="4">
+                <Entry MinimumWidthRequest="350" Placeholder="IP"/>
+                <Entry MinimumWidthRequest="150" Placeholder="Gate"/>
+                <Button Text="Start"/>
+            </HorizontalStackLayout>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <Grid>
+                <ScrollView>
+                    <CollectionView >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <FlexLayout>
+                <Entry FlexLayout.Grow="1"/>
+                <Button WidthRequest="100" Text="Send"/>
+            </FlexLayout>
+        </Border>
+    </Grid>
 
 </ContentPage>
