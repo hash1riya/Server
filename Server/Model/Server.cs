@@ -7,34 +7,36 @@ public class Server
 {
     IPEndPoint endp;
     Socket socket;
+
+    public Socket Client;
     public byte[] Buffer = new byte[1024];
 
     public Server(string ip, int port)
     {
-        endp = new IPEndPoint(IPAddress.Parse(ip), port);
-        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-        socket.Bind(endp);
-        socket.Listen(10);
+        this.endp = new IPEndPoint(IPAddress.Parse(ip), port);
+        this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+        this.Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+        this.socket.Bind(endp);
+        this.socket.Listen(10);
     }
-    public async Task<Socket> ClientAccept() => await socket.AcceptAsync();
+    public async Task<Socket> ClientAccept() => this.Client = await this.socket.AcceptAsync();
+
     public void Stop()
     {
-        if (socket != null)
-            try
-            {
-                socket.Close();
-                socket.Dispose();
-                socket = null;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+        try
+        {
+            this.socket.Close();
+            this.Client.Close();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
-    public async Task<int> Receive(Socket s) => await s.ReceiveAsync(this.Buffer);
-    public async void Send(string strSend, Socket client)
+    public async Task<int> Receive() => await this.Client.ReceiveAsync(this.Buffer);
+    public async void Send(string strSend)
     {
-        if (socket != null)
-            await client.SendAsync(System.Text.Encoding.UTF8.GetBytes(strSend));
+        if (this.socket != null)
+            await this.Client.SendAsync(System.Text.Encoding.UTF8.GetBytes(strSend));
     }
 }

@@ -9,7 +9,7 @@
 
     <Grid
         ColumnDefinitions="*"
-        RowDefinitions="50, *, 60"
+        RowDefinitions="55, *, 60"
         RowSpacing="2">
         <Border
             Padding="2"
@@ -30,29 +30,25 @@
             StrokeThickness="2"
             StrokeShape="RoundRectangle 5"
             Stroke="Gray">
-            <Grid>
-                <ScrollView Padding="3">
-                    <CollectionView ItemsSource="{Binding MessageHistory}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Message">
-                                <Border
-                                    StrokeShape="RoundRectangle 5"
-                                    BackgroundColor="Gray">
-                                    <Grid
-                                        RowDefinitions="*, *"
-                                        ColumnDefinitions="135, 40,*">
-                                        <Label Text="{Binding Sender}"/>
-                                        <Label Grid.Column="1" Text="|"/>
-                                        <Label Grid.Column="2" Text="{Binding Content}"/>
-                                        <Label Grid.Row="1" Text="{Binding Time}"/>
-                                        <Label Grid.Column="1" Grid.Row="1" Text="|"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </ScrollView>
-            </Grid>
+            <CollectionView ItemsSource="{Binding MessageHistory}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Message">
+                        <Border
+                            StrokeShape="RoundRectangle 5"
+                            BackgroundColor="Gray">
+                            <Grid
+                                RowDefinitions="*, *"
+                                ColumnDefinitions="115, 40,*">
+                                <Label Text="{Binding Sender}"/>
+                                <Label Grid.Column="1" Text="|"/>
+                                <Label Grid.Column="2" Grid.RowSpan="2" Text="{Binding Content}"/>
+                                <Label Grid.Row="1" Text="{Binding Time}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="|"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Border>
 
         <Border
