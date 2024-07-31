@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:Server.ViewModel"
+             xmlns:model="clr-namespace:Server.Model"
+             x:Class="Server.View.MainPage"
+             x:DataType="viewModel:MainViewModel">
+
+
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="50, *, 60"
+        RowSpacing="2">
+        <Border
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <HorizontalStackLayout Spacing="4">
+                <Entry MinimumWidthRequest="350" Placeholder="IP" Text="{Binding Ip}" IsEnabled="{Binding IsNotRunning}"/>
+                <Entry MinimumWidthRequest="150" Placeholder="Port" Text="{Binding Port}" IsEnabled="{Binding IsNotRunning}"/>
+                <Button Text="Start" Command="{Binding StartCommand}" IsEnabled="{Binding IsNotRunning}"/>
+                <Button Text="Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsRunning}"/>
+            </HorizontalStackLayout>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <Grid>
+                <ScrollView Padding="3">
+                    <CollectionView ItemsSource="{Binding MessageHistory}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Message">
+                                <Border
+                                    StrokeShape="RoundRectangle 5"
+                                    BackgroundColor="Gray">
+                                    <Grid
+                                        RowDefinitions="*, *"
+                                        ColumnDefinitions="135, 40,*">
+                                        <Label Text="{Binding Sender}"/>
+                                        <Label Grid.Column="1" Text="|"/>
+                                        <Label Grid.Column="2" Text="{Binding Content}"/>
+                                        <Label Grid.Row="1" Text="{Binding Time}"/>
+                                        <Label Grid.Column="1" Grid.Row="1" Text="|"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            Padding="2"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 5"
+            Stroke="Gray">
+            <FlexLayout>
+                <Entry FlexLayout.Grow="1" Text="{Binding Message}" IsEnabled="{Binding IsConnected}"/>
+                <Button WidthRequest="100" Text="Send" Command="{Binding SendCommand}" IsEnabled="{Binding IsConnected}"/>
+            </FlexLayout>
+        </Border>
+    </Grid>
+
+</ContentPage>
