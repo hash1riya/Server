@@ -9,7 +9,7 @@
 
     <Grid
         ColumnDefinitions="*"
-        RowDefinitions="55, *, 60"
+        RowDefinitions="55, *"
         RowSpacing="2">
         <Border
             Padding="2"
