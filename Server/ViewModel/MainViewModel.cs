@@ -20,8 +20,6 @@ public partial class MainViewModel : ObservableObject
     private string ip = "127.0.0.1";
     [ObservableProperty]
     private int port = 1024;
-    [ObservableProperty]
-    private string message = string.Empty;
 
     public ObservableCollection<Message> MessageHistory { get; set; } = [];
 
@@ -50,6 +48,12 @@ public partial class MainViewModel : ObservableObject
                     Content = System.Text.Encoding.UTF8.GetString(Server.Buffer, 0, bytesRead),
                     Sender = $"{this.Server.Client.RemoteEndPoint}:"
                 });
+                if (System.Text.Encoding.UTF8.GetString(Server.Buffer, 0, bytesRead).ToLower() == "getdate")
+                    this.Send(DateTime.Now.ToString("dd/MM/yyyy"));
+                else if (System.Text.Encoding.UTF8.GetString(Server.Buffer, 0, bytesRead).ToLower() == "gettime")
+                    this.Send(DateTime.Now.ToString("hh:mm:ss"));
+                else
+                    this.Send("Unrecognized command");
             }
         }
         catch (Exception ex)
@@ -100,18 +104,14 @@ public partial class MainViewModel : ObservableObject
         });
     }
 
-    [RelayCommand]
-    private void Send()
+    public void Send(string message)
     {
-        this.Server.Send(this.Message);
+        this.Server.Send(message);
         this.MessageHistory.Add(new Message()
         {
             Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
             Sender = "me:",
-            Content = this.Message
+            Content = message
         });
-        if(this.Message.ToLower() == "bye")
-            this.Stop();
-        this.Message = string.Empty;
     }
 }

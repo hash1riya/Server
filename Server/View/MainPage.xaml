@@ -50,18 +50,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Border>
-
-        <Border
-            Grid.Row="2"
-            Padding="2"
-            StrokeThickness="2"
-            StrokeShape="RoundRectangle 5"
-            Stroke="Gray">
-            <FlexLayout>
-                <Entry FlexLayout.Grow="1" Text="{Binding Message}" IsEnabled="{Binding IsConnected}"/>
-                <Button WidthRequest="100" Text="Send" Command="{Binding SendCommand}" IsEnabled="{Binding IsConnected}"/>
-            </FlexLayout>
-        </Border>
     </Grid>
 
 </ContentPage>
