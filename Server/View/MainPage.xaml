@@ -9,7 +9,7 @@
 
     <Grid
         ColumnDefinitions="*"
-        RowDefinitions="55, *, 60"
+        RowDefinitions="55, *"
         RowSpacing="2">
         <Border
             Padding="2"
@@ -21,6 +21,7 @@
                 <Entry MinimumWidthRequest="150" Placeholder="Port" Text="{Binding Port}" IsEnabled="{Binding IsNotRunning}"/>
                 <Button Text="Start" Command="{Binding StartCommand}" IsEnabled="{Binding IsNotRunning}"/>
                 <Button Text="Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsRunning}"/>
+                <Button Text="Send greeting" Command="{Binding SendCommand}" IsEnabled="{Binding IsConnected}"/>
             </HorizontalStackLayout>
         </Border>
 
@@ -49,18 +50,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Border>
-
-        <Border
-            Grid.Row="2"
-            Padding="2"
-            StrokeThickness="2"
-            StrokeShape="RoundRectangle 5"
-            Stroke="Gray">
-            <FlexLayout>
-                <Entry FlexLayout.Grow="1" Text="{Binding Message}" IsEnabled="{Binding IsConnected}"/>
-                <Button WidthRequest="100" Text="Send" Command="{Binding SendCommand}" IsEnabled="{Binding IsConnected}"/>
-            </FlexLayout>
         </Border>
     </Grid>
 

@@ -21,7 +21,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private int port = 1024;
     [ObservableProperty]
-    private string message = string.Empty;
+    private string message = "Hello client!";
 
     public ObservableCollection<Message> MessageHistory { get; set; } = [];
 
@@ -110,8 +110,5 @@ public partial class MainViewModel : ObservableObject
             Sender = "me:",
             Content = this.Message
         });
-        if(this.Message.ToLower() == "bye")
-            this.Stop();
-        this.Message = string.Empty;
     }
 }
